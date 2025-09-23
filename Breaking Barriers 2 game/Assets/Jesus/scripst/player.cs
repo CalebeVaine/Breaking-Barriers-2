@@ -2,31 +2,65 @@
 
 public class MovimentoHorizontal : MonoBehaviour
 {
-    // Velocidade de deslocamento (unidades por segundo)
-    public float velocidade = 5f;
+    public float velocidade = 5f;            // Velocidade de movimento lateral
+    public float forcaDoPulo = 7f;           // Força do primeiro pulo
+    public float forcaDoPuloExtra = 10f;    // Força do segundo pulo
+    public Transform groundCheck;            // Objeto vazio nos pés do jogador
+    public float groundCheckRadius = 0.2f;  // Raio para checar o chão
+    public LayerMask groundLayer;            // Layer do chão
 
-    // Referência ao componente Rigidbody2D (opcional, mas recomendado)
     private Rigidbody2D rb;
+    private int jumpCount = 0;
+    private int maxJumps = 2; // Máximo 2 pulos seguidos
+    private bool isGrounded;
+    private bool wasGrounded;
 
     void Awake()
     {
-        // Busca o Rigidbody2D no mesmo objeto (se houver)
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        // Lê o eixo horizontal: A/D, ←/→ ou joystick
+        // Movimento horizontal
         float eixoX = Input.GetAxisRaw("Horizontal"); // -1, 0 ou 1
+        rb.linearVelocity = new Vector2(eixoX * velocidade, rb.linearVelocity.y);
 
-        // Calcula o deslocamento para este frame
-        Vector2 movimento = new Vector2(eixoX * velocidade, 0f);
+        // Checa se está no chão
+        wasGrounded = isGrounded;
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Se estiver usando Rigidbody2D, mova com física:
-        if (rb != null)
-            rb.linearVelocity = new Vector2(movimento.x, rb.linearVelocity.y);
-        else
-            // Caso não tenha Rigidbody2D, move transform diretamente
-            transform.Translate(movimento * Time.deltaTime);
+        // Reseta o contador de pulos ao tocar o chão
+        if (isGrounded && !wasGrounded)
+        {
+            jumpCount = 0;
+        }
+
+        // Pular se ainda tiver pulos disponíveis
+        if (Input.GetButtonDown("Jump") && jumpCount < maxJumps)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Zera a velocidade vertical antes do pulo
+
+            if (jumpCount == 1) // Segundo pulo
+            {
+                rb.AddForce(Vector2.up * forcaDoPuloExtra, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * forcaDoPulo, ForceMode2D.Impulse);
+            }
+
+            jumpCount++;
+        }
+    }
+
+    // Visualizar o raio no editor
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
     }
 }
