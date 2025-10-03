@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      demo06_PixelSky_1920x1080_0: -3939733472137022578
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
