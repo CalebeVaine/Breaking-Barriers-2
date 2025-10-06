@@ -22,26 +22,29 @@ public class MovimentoHorizontal : MonoBehaviour
 
     void Update()
     {
-        // Movimento horizontal
-        float eixoX = Input.GetAxisRaw("Horizontal"); // -1, 0 ou 1
+        // --- Bloco de Movimento Horizontal ---
+        float eixoX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(eixoX * velocidade, rb.linearVelocity.y);
 
-        // Checa se está no chão
+        // --- Bloco de Verificação de Chão (Ordem Correta) ---
         wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Reseta o contador de pulos ao tocar o chão
+        // !! ADICIONE ESTA LINHA PARA DEPURAR !!
+        Debug.Log("Está no Chão? " + isGrounded + "  | Contagem de Pulos: " + jumpCount);
+
+        // --- Lógica de Reset ---
         if (isGrounded && !wasGrounded)
         {
             jumpCount = 0;
         }
 
-        // Pular se ainda tiver pulos disponíveis
+        // --- Bloco de Lógica do Pulo ---
         if (Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Zera a velocidade vertical antes do pulo
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
 
-            if (jumpCount == 1) // Segundo pulo
+            if (jumpCount == 1)
             {
                 rb.AddForce(Vector2.up * forcaDoPuloExtra, ForceMode2D.Impulse);
             }
