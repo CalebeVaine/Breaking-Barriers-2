@@ -2,16 +2,16 @@
 
 public class MovimentoHorizontal : MonoBehaviour
 {
-    public float velocidade = 5f;            // Velocidade de movimento lateral
-    public float forcaDoPulo = 7f;           // Força do primeiro pulo
-    public float forcaDoPuloExtra = 10f;    // Força do segundo pulo
-    public Transform groundCheck;            // Objeto vazio nos pés do jogador
-    public float groundCheckRadius = 0.2f;  // Raio para checar o chão
-    public LayerMask groundLayer;            // Layer do chão
+    public float velocidade = 5f;
+    public float forcaDoPulo = 7f;
+    public float forcaDoPuloExtra = 10f;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb;
     private int jumpCount = 0;
-    private int maxJumps = 2; // Máximo 2 pulos seguidos
+    private int maxJumps = 2;
     private bool isGrounded;
     private bool wasGrounded;
 
@@ -22,27 +22,24 @@ public class MovimentoHorizontal : MonoBehaviour
 
     void Update()
     {
-        // --- Bloco de Movimento Horizontal ---
+        // Movimento horizontal
         float eixoX = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(eixoX * velocidade, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(eixoX * velocidade, rb.linearVelocity.y); // Corrigido para velocity
 
-        // --- Bloco de Verificação de Chão (Ordem Correta) ---
+        // Checa se está no chão
         wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // !! ADICIONE ESTA LINHA PARA DEPURAR !!
-        Debug.Log("Está no Chão? " + isGrounded + "  | Contagem de Pulos: " + jumpCount);
-
-        // --- Lógica de Reset ---
+        // Reseta os pulos ao tocar o chão
         if (isGrounded && !wasGrounded)
         {
             jumpCount = 0;
         }
 
-        // --- Bloco de Lógica do Pulo ---
+        // Pulo
         if (Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Zera velocidade vertical antes de pular
 
             if (jumpCount == 1)
             {
@@ -57,7 +54,6 @@ public class MovimentoHorizontal : MonoBehaviour
         }
     }
 
-    // Visualizar o raio no editor
     void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
