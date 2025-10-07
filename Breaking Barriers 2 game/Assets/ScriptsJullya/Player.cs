@@ -4,55 +4,96 @@ public class Player : MonoBehaviour
 {
     private float horizontal;
     public float speed = 5f;
-    public float jumpForce = 10f; // Adicionei a for�a de pulo que voc� pediu antes
+    public float jumpForce = 10f;
     private Rigidbody2D body;
 
-    // VARI�VEL DE PONTUA��O E TEXTO
-    public static int score = 0; // Vari�vel est�tica para ser acessada de qualquer lugar
-    // NOTA: Em um jogo real, voc� usaria um script de 'GameManager' para pontua��o.
+    public static int score = 0;
+
+    // Referências para o Quiz
+    [SerializeField]
+    private QuizManager quizManager;
+    public int coinsToStartQuiz = 5;
+    private bool quizActive = false;
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        // � sempre bom iniciar a pontua��o
         score = 0;
-        Debug.Log("Score inicial: " + score); // Veja o score na janela Console
+        if (quizManager == null)
+        {
+            quizManager = FindObjectOfType<QuizManager>();
+        }
+        Time.timeScale = 1;
     }
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        // Exemplo de pulo (permite pulo infinito, como voc� pediu antes)
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Movimento só é permitido se o quiz NÃO estiver ativo
+        if (!quizActive)
         {
-            Jump();
+            horizontal = Input.GetAxisRaw("Horizontal");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
         }
     }
 
     void FixedUpdate()
     {
-        // CORRIGIDO: Use 'velocity' em vez de 'linearVelocity' (que est� obsoleto)
-        body.linearVelocity = new Vector2(horizontal * speed, body.linearVelocity.y);
+        float currentSpeed = quizActive ? 0 : horizontal * speed;
+        // Usa 'velocity' (corrigindo o erro de API obsoleta)
+        body.linearVelocity = new Vector2(currentSpeed, body.linearVelocity.y);
     }
 
     void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        if (!quizActive)
+        {
+            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        }
     }
 
-    // NOVO M�TODO: Detecta quando o jogador toca em um objeto
+    // Método chamado pelo script da Coin
+    public void AddCoin(int points)
+    {
+        score += points;
+        Debug.Log("Ponto coletado! Novo Score: " + score);
+
+        if (score >= coinsToStartQuiz && !quizActive)
+        {
+            StartQuiz();
+        }
+    }
+
+    void StartQuiz()
+    {
+        if (quizManager != null)
+        {
+            quizActive = true;
+            Time.timeScale = 0; // PAUSA o jogo
+            quizManager.ShowQuiz();
+        }
+    }
+
+    // Método que o QuizManager chama para despausar o jogo (corrigindo o erro CS1061 anterior)
+    public void EndQuiz()
+    {
+        quizActive = false;
+        Time.timeScale = 1; // DESPAUSA o jogo
+        score = 0; // Reseta o score para começar a próxima contagem
+        Debug.Log("Quiz finalizado. Jogo resumido.");
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Verifica se o objeto com o qual colidimos tem a tag "Coin" (Moeda)
         if (other.CompareTag("Coin"))
         {
-            // Chamamos o m�todo de coleta da moeda (Coin.cs)
-            // A moeda se encarregar� de adicionar a pontua��o e se destruir.
             Coin coin = other.GetComponent<Coin>();
             if (coin != null)
             {
-                coin.Collect();
+                // CHAMADA CORRIGIDA: Passa a referência do Player ('this')
+                coin.Collect(this);
             }
         }
     }
