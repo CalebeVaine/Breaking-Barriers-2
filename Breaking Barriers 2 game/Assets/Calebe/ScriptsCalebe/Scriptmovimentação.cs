@@ -25,7 +25,7 @@ public class Movimento : MonoBehaviour
     void Mover()
     {
         float movimento = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(movimento * velocidade, rb.velocity.y);
+        rb.linearVelocity = new Vector2(movimento * velocidade, rb.linearVelocity.y);
 
         if (movimento > 0)
             transform.localScale = new Vector3(1, 1, 1);
@@ -39,7 +39,7 @@ public class Movimento : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && estaNoChao)
         {
-            rb.velocity = new Vector2(rb.velocity.x, forcaPulo);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, forcaPulo);
         }
     }
 
