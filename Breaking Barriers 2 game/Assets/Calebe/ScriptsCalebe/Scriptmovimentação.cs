@@ -2,39 +2,50 @@ using UnityEngine;
 
 public class Movimento : MonoBehaviour
 {
-    public float velocidade = 5f;   
-    public float forcaPulo = 7f;   
-    private Rigidbody rb;
-    private bool noChao = true;
+    public float velocidade = 5f;
+    public float forcaPulo = 12f;
+    public Transform checarChao;
+    public float raioChao = 0.2f;
+    public LayerMask camadaChao;
+
+    private Rigidbody2D rb;
+    private bool estaNoChao;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        // Movimento no eixo X e Z (setas ou WASD)
-        float moveX = Input.GetAxis("Horizontal"); 
-        float moveZ = Input.GetAxis("Vertical");   
+        Mover();
+        Pular();
+    }
 
-        Vector3 movimento = new Vector3(moveX, 0, moveZ) * velocidade;
-        Vector3 novaVelocidade = new Vector3(movimento.x, rb.linearVelocity.y, movimento.z);
+    void Mover()
+    {
+        float movimento = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(movimento * velocidade, rb.velocity.y);
 
-        rb.linearVelocity = novaVelocidade;
+        if (movimento > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (movimento < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+    }
 
-        // Pular com espaço
-        if (Input.GetKeyDown(KeyCode.Space) && noChao)
+    void Pular()
+    {
+        estaNoChao = Physics2D.OverlapCircle(checarChao.position, raioChao, camadaChao);
+
+        if (Input.GetButtonDown("Jump") && estaNoChao)
         {
-            rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
-            noChao = false;
+            rb.velocity = new Vector2(rb.velocity.x, forcaPulo);
         }
     }
-    void OnCollisionEnter(Collision collision)
+
+    void OnDrawGizmosSelected()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            noChao = true;
-        }
+        if (checarChao != null)
+            Gizmos.DrawWireSphere(checarChao.position, raioChao);
     }
 }
