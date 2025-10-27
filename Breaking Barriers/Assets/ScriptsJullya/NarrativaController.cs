@@ -34,22 +34,19 @@ public class NarrativaController : MonoBehaviour
         }
     }
 
-    // REMOVIDO: O código Input.GetKeyDown(KeyCode.E) foi removido daqui.
-    // O avanço será controlado apenas por AvancarNarrativa() ou por um botão.
-    /*
+    // Código REATIVADO: Usa a tecla E para chamar a função de avanço.
     void Update()
     {
-        // Se o avanço for por input, descomente e use o input desejado.
-        // if (Input.GetKeyDown(KeyCode.E))
-        // {
-        //     AvancarNarrativa();
-        // }
+        // Pula para a próxima frase (ou para o fim do Typewriter) ao pressionar E
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AvancarNarrativa();
+        }
     }
-    */
 
     /// <summary>
     /// Avança para a próxima fala da narrativa ou carrega a cena do jogo.
-    /// Esta função DEVE ser chamada pelo evento OnClick de um botão "Avançar".
+    /// Esta função é chamada ao apertar E ou pelo evento OnClick de um botão "Avançar".
     /// </summary>
     public void AvancarNarrativa()
     {
@@ -68,11 +65,8 @@ public class NarrativaController : MonoBehaviour
             indiceAtualDaFala++;
             StartCoroutine(EfeitoTypewriter());
         }
-        else
-        {
-            // Chegou ao fim da narrativa
-            CarregarCenaDoJogo();
-        }
+        
+    
     }
 
     IEnumerator EfeitoTypewriter()
@@ -96,14 +90,9 @@ public class NarrativaController : MonoBehaviour
     /// <summary>
     /// Carrega a cena do jogo (Fim da Narrativa).
     /// </summary>
-    public void CarregarCenaDoJogo()
-    {
-        Debug.Log("Fim da narrativa. Carregando cena: " + nomeDaCenaDoJogo);
-        SceneManager.LoadScene(nomeDaCenaDoJogo);
-    }
-
+    
     /// <summary>
-    /// NOVO: Carrega a cena do Menu Principal/Entrada.
+    /// Carrega a cena do Menu Principal/Entrada.
     /// Esta função DEVE ser chamada pelo evento OnClick de um botão "Voltar".
     /// </summary>
     public void VoltarParaMenu()

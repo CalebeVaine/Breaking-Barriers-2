@@ -753,7 +753,6 @@ MonoBehaviour:
     autora de livros essenciais como 'Transfeminismo: Teorias e Pr\xE1ticas"
   - "Sua vida \xE9 um exemplo de que a educa\xE7\xE3o e a coragem s\xE3o ferramentas
     poderosas contra a injusti\xE7a."
-  - Pressione 'E' para iniciar o jogo.
   textoDaNarrativa: {fileID: 173572861}
   velocidadeTypewriter: 0.05
   nomeDaCenaDoMenu: CenaEntrada
