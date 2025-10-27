@@ -14,6 +14,10 @@ public class NarrativaController : MonoBehaviour
     private bool estaDigitando = false;
 
     [Header("Controle de Cena")]
+    [Tooltip("Nome da cena do Menu Principal/Entrada.")]
+    public string nomeDaCenaDoMenu = "CenaMenuPrincipal";
+
+    [Tooltip("Nome da cena que inicia a jogabilidade.")]
     public string nomeDaCenaDoJogo = "Nivel1";
 
     private int indiceAtualDaFala = 0;
@@ -30,18 +34,28 @@ public class NarrativaController : MonoBehaviour
         }
     }
 
+    // REMOVIDO: O código Input.GetKeyDown(KeyCode.E) foi removido daqui.
+    // O avanço será controlado apenas por AvancarNarrativa() ou por um botão.
+    /*
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AvancarNarrativa();
-        }
+        // Se o avanço for por input, descomente e use o input desejado.
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     AvancarNarrativa();
+        // }
     }
+    */
 
-    void AvancarNarrativa()
+    /// <summary>
+    /// Avança para a próxima fala da narrativa ou carrega a cena do jogo.
+    /// Esta função DEVE ser chamada pelo evento OnClick de um botão "Avançar".
+    /// </summary>
+    public void AvancarNarrativa()
     {
         if (estaDigitando)
         {
+            // Se estiver digitando, pula o efeito e mostra o texto completo
             StopAllCoroutines();
             textoDaNarrativa.text = falasDaNarrativa[indiceAtualDaFala];
             estaDigitando = false;
@@ -50,11 +64,13 @@ public class NarrativaController : MonoBehaviour
 
         if (indiceAtualDaFala < falasDaNarrativa.Length - 1)
         {
+            // Avança para a próxima fala e inicia o efeito typewriter
             indiceAtualDaFala++;
             StartCoroutine(EfeitoTypewriter());
         }
         else
         {
+            // Chegou ao fim da narrativa
             CarregarCenaDoJogo();
         }
     }
@@ -65,18 +81,41 @@ public class NarrativaController : MonoBehaviour
         string falaCompleta = falasDaNarrativa[indiceAtualDaFala];
         textoDaNarrativa.text = "";
 
+        // Garante que a velocidade não é zero para evitar um loop infinito
+        float waitTime = velocidadeTypewriter > 0 ? velocidadeTypewriter : 0.05f;
+
         foreach (char letra in falaCompleta.ToCharArray())
         {
             textoDaNarrativa.text += letra;
-            yield return new WaitForSeconds(velocidadeTypewriter);
+            yield return new WaitForSeconds(waitTime);
         }
 
         estaDigitando = false;
     }
 
-    void CarregarCenaDoJogo()
+    /// <summary>
+    /// Carrega a cena do jogo (Fim da Narrativa).
+    /// </summary>
+    public void CarregarCenaDoJogo()
     {
         Debug.Log("Fim da narrativa. Carregando cena: " + nomeDaCenaDoJogo);
         SceneManager.LoadScene(nomeDaCenaDoJogo);
+    }
+
+    /// <summary>
+    /// NOVO: Carrega a cena do Menu Principal/Entrada.
+    /// Esta função DEVE ser chamada pelo evento OnClick de um botão "Voltar".
+    /// </summary>
+    public void VoltarParaMenu()
+    {
+        if (!string.IsNullOrEmpty(nomeDaCenaDoMenu))
+        {
+            Debug.Log("Voltando para o Menu Principal: " + nomeDaCenaDoMenu);
+            SceneManager.LoadScene(nomeDaCenaDoMenu);
+        }
+        else
+        {
+            Debug.LogError("O nome da cena do Menu Principal não foi definido no Inspector!");
+        }
     }
 }
