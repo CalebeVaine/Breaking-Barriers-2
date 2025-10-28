@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 825042128}
   - component: {fileID: 825042127}
   - component: {fileID: 825042130}
+  - component: {fileID: 825042131}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -989,6 +990,21 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &825042131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825042126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c8090301f18cc42b13e5e8d77848d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  target: {fileID: 1737538933}
+  offset: {x: 7.92, y: 2.04, z: -10}
+  smoothSpeed: 0.125
 --- !u!1 &834951104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,7 +2020,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 27.84761, y: 0}
+  m_Offset: {x: 26.641338, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2014,7 +2030,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 66.848145, y: 1}
+  m_Size: {x: 69.26069, y: 1}
   m_EdgeRadius: 0
 --- !u!4 &1988124881
 Transform:
@@ -2357,8 +2373,8 @@ Transform:
   m_GameObject: {fileID: 2134844357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0354, y: -1.39, z: 0}
-  m_LocalScale: {x: 0.07209814, y: 0.06827999, z: 1}
+  m_LocalPosition: {x: 9.3187, y: -2.0177, z: 0}
+  m_LocalScale: {x: 0.067622095, y: 0.065098144, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
