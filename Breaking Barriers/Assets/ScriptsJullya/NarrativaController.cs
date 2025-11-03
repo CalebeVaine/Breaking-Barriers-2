@@ -38,7 +38,7 @@ public class NarrativaController : MonoBehaviour
     void Update()
     {
         // Pula para a próxima frase (ou para o fim do Typewriter) ao pressionar E
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             AvancarNarrativa();
         }

@@ -8,14 +8,9 @@ public class SkipIntrodução : MonoBehaviour
     [Tooltip("O nome da cena (Scene) a ser carregada após pular a introdução (ex: MainMenu ou Level1).")]
     public string nextSceneName = "MainMenu";
 
-    void Update()
+   void Update()
     {
-        // Verifica se a tecla 'F' foi pressionada APENAS uma vez neste frame
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("Introdução pulada pelo jogador (Tecla 'F'). Carregando a cena: " + nextSceneName);
-            LoadNextScene();
-        }
+              
     }
 
     /// <summary>
