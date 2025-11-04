@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Sair : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Método para sair do jogo
+    public void SairdoJogo()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Se o jogo estiver rodando no editor, apenas para a execução
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            // Caso contrário, fecha o jogo
+            Application.Quit();
+#endif
     }
 }
