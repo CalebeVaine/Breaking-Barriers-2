@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 1737538933}
-  offset: {x: 10.52, y: 2.99, z: -10}
+  offset: {x: 7.6, y: 2.71, z: -10}
   smoothSpeed: 0.125
 --- !u!1 &834951104
 GameObject:
@@ -1513,8 +1513,8 @@ Transform:
   m_GameObject: {fileID: 930962717}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1043, y: 0.0626, z: 0}
-  m_LocalScale: {x: 7.1195107, y: 5.156486, z: 1}
+  m_LocalPosition: {x: 1.2935, y: 0.0626, z: 0}
+  m_LocalScale: {x: 6.376234, y: 5.156486, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1797,7 +1797,7 @@ Transform:
   m_GameObject: {fileID: 1165778085}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 1.33, z: 0}
+  m_LocalPosition: {x: 3.17, y: 1.36, z: 0}
   m_LocalScale: {x: 1, y: 1.2655802, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3731,7 +3731,7 @@ Transform:
   m_GameObject: {fileID: 1737538928}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.015731962, z: -0, w: 0.9998763}
-  m_LocalPosition: {x: -10.37, y: -3.14, z: -0.31}
+  m_LocalPosition: {x: -7.35, y: -3.04, z: -0.29}
   m_LocalScale: {x: 0.167692, y: 0.108750634, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

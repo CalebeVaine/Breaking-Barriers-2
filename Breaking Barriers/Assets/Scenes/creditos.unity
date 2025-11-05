@@ -453,7 +453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.73, y: 62}
+  m_AnchoredPosition: {x: 62.73001, y: 62}
   m_SizeDelta: {x: -257.0879, y: -320.6036}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &120756314
@@ -799,8 +799,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.84, y: 154.6}
-  m_SizeDelta: {x: 1158.7, y: 194.8}
+  m_AnchoredPosition: {x: -78.848, y: 154.6}
+  m_SizeDelta: {x: 1012.7, y: 194.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &168687616
 MonoBehaviour:
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}

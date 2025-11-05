@@ -4,38 +4,44 @@ public class Coin : MonoBehaviour
 {
     public int points = 1;
 
-    // NOVO: Referência privada ao GameManager
+    [Header("Áudio")]
+    public AudioClip collectSound;
+
+    // NOVO: Variável pública para controlar o volume
+    [Tooltip("Volume do som de coleta (0.0 = mudo, 1.0 = volume total).")]
+    public float collectVolume = 1.0f;
+
     private GameManager2 gameManager;
 
     void Start()
     {
-        // NOVO: Encontra e armazena a referência ao GameManager logo no início.
         gameManager = FindObjectOfType<GameManager2>();
-
         if (gameManager == null)
         {
-            // Mensagem de erro para alertar se o GameManager estiver faltando na cena.
             Debug.LogError("Coin: GameManager não encontrado na cena. O contador de UI não funcionará.");
         }
     }
 
     public void Collect()
     {
-        // 1. (EXISTENTE) Aumenta o score estático da Jaqueline.
-        // Isso é para a pontuação total (se você for usar o 'score' em outro lugar).
-        // Lembre-se que 'Player.score' precisa ser estático.
+        // 1. Toca o efeito sonoro usando o volume definido
+        if (collectSound != null)
+        {
+            // O PlayClipAtPoint AGORA recebe o volume como terceiro parâmetro!
+            AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
+        }
+
+        // 2. Aumenta a pontuação
         Player.score += points;
         Debug.Log("Ponto coletado! Novo Score: " + Player.score);
 
-        // 2. (NOVO) Notifica o GameManager que um item foi coletado.
+        // 3. Notifica o GameManager
         if (gameManager != null)
         {
-            // Chama o método no GameManager para incrementar o contador (collectedCount)
-            // e atualizar o 'Count Text' na UI.
             gameManager.CollectItem();
         }
 
-        // 3. (EXISTENTE) Destrói o objeto (a moeda desaparece).
+        // 4. Destrói o objeto da moeda
         Destroy(gameObject);
     }
 }
