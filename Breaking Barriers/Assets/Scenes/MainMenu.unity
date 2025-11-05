@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+  collectSound: {fileID: 8300000, guid: d6945231be24c7240a281458fc849e1f, type: 3}
+  collectVolume: 11.55
 --- !u!212 &5889224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -328,6 +330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+  collectSound: {fileID: 0}
+  collectVolume: 1
 --- !u!212 &42924306
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -395,8 +399,8 @@ Transform:
   m_GameObject: {fileID: 42924303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.97, y: -1.75, z: 0}
-  m_LocalScale: {x: 0.07209814, y: 0.06827999, z: 1}
+  m_LocalPosition: {x: 6.5868, y: -2.5, z: 0}
+  m_LocalScale: {x: 0.046467256, y: 0.04692201, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1550,6 +1554,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &980602082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980602084}
+  - component: {fileID: 980602083}
+  m_Layer: 0
+  m_Name: musicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &980602083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980602082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a29108367a53d34297f1a6ed3421f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  backgroundMusic: {fileID: 8300000, guid: 0ad591428b0c18c4da51fe3bf98dbc63, type: 3}
+  musicVolume: 0.045
+--- !u!4 &980602084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980602082}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.2305, y: 3.67172, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023599342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,6 +1668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+  collectSound: {fileID: 8300000, guid: d6945231be24c7240a281458fc849e1f, type: 3}
+  collectVolume: 24.4
 --- !u!212 &1023599345
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1685,8 +1737,8 @@ Transform:
   m_GameObject: {fileID: 1023599342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.25, y: -0.02, z: 0}
-  m_LocalScale: {x: 0.068539724, y: 0.051326577, z: 1}
+  m_LocalPosition: {x: -4.4332, y: -2.55, z: 0}
+  m_LocalScale: {x: 0.042905867, y: 0.03851033, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3946,6 +3998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+  collectSound: {fileID: 0}
+  collectVolume: 1
 --- !u!212 &2015217245
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4013,8 +4067,8 @@ Transform:
   m_GameObject: {fileID: 2015217242}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.86, y: -2.1, z: 0}
-  m_LocalScale: {x: 0.059927143, y: 0.06096607, z: 1}
+  m_LocalPosition: {x: 16.454, y: -2.8112, z: 0}
+  m_LocalScale: {x: 0.038569108, y: 0.04387728, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4137,6 +4191,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+  collectSound: {fileID: 0}
+  collectVolume: 1
 --- !u!212 &2134844360
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4238,3 +4294,4 @@ SceneRoots:
   - {fileID: 1649777307}
   - {fileID: 58316742}
   - {fileID: 1241917367}
+  - {fileID: 980602084}
