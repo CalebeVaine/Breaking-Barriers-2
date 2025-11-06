@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f3d343e01b193234aa6743f7bbfb1f6e
+guid: 99fc9cdc9c9553c4da5fafb483ef51df
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8435467236148266609
-    second: BackgroundC_0
+      213: 620825655395414567
+    second: gradient_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackgroundC_0
+      name: gradient_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 192
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 176401d12ccc01570800000000000000
-      internalID: 8435467236148266609
+      spriteID: 722fa41f4ad9d9800800000000000000
+      internalID: 620825655395414567
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BackgroundC_0: 8435467236148266609
+      gradient_0: 620825655395414567
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
