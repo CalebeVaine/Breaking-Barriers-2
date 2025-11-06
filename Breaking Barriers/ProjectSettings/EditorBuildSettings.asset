@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/creditos.unity
     guid: 02986ea9e4b97e741b42a91aa212a4ef
+  - enabled: 1
+    path: Assets/Scenes/CenaLogo.unity
+    guid: 200eed8d146dc6b449436306aba9241d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
