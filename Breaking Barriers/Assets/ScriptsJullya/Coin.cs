@@ -7,7 +7,7 @@ public class Coin : MonoBehaviour
     [Header("Áudio")]
     public AudioClip collectSound;
 
-    // NOVO: Variável pública para controlar o volume
+
     [Tooltip("Volume do som de coleta (0.0 = mudo, 1.0 = volume total).")]
     public float collectVolume = 1.0f;
 
@@ -24,24 +24,23 @@ public class Coin : MonoBehaviour
 
     public void Collect()
     {
-        // 1. Toca o efeito sonoro usando o volume definido
+  
         if (collectSound != null)
         {
-            // O PlayClipAtPoint AGORA recebe o volume como terceiro parâmetro!
+      
             AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
         }
 
-        // 2. Aumenta a pontuação
+
         Player.score += points;
         Debug.Log("Ponto coletado! Novo Score: " + Player.score);
 
-        // 3. Notifica o GameManager
         if (gameManager != null)
         {
             gameManager.CollectItem();
         }
 
-        // 4. Destrói o objeto da moeda
+   
         Destroy(gameObject);
     }
 }

@@ -18,20 +18,19 @@ public class NarrativaPrincipal : MonoBehaviour
 
     private int indiceAtualDaFala = 0;
 
-    // NOVO: Adicione uma flag para saber se a narrativa já foi iniciada
+
     private bool narrativaIniciada = false;
 
-    // O Start() agora está vazio, pois não queremos começar imediatamente.
+ 
     void Start()
     {
-        // Certifique-se de que o texto esteja vazio no início
         if (textoDaNarrativa != null)
         {
             textoDaNarrativa.text = "";
         }
     }
 
-    // UPDATE: Só avance se a narrativa já tiver sido iniciada
+
     void Update()
     {
         if (narrativaIniciada && Input.GetKeyDown(KeyCode.Space))
@@ -40,14 +39,14 @@ public class NarrativaPrincipal : MonoBehaviour
         }
     }
 
-    // NOVA FUNÇÃO PÚBLICA: Será chamada pelo script do pergaminho.
+ 
     public void IniciarNarrativa()
     {
-        if (narrativaIniciada) return; // Impede que a narrativa comece mais de uma vez
+        if (narrativaIniciada) return; 
 
         if (falasDaNarrativa.Length > 0)
         {
-            narrativaIniciada = true; // Marca como iniciado
+            narrativaIniciada = true; 
             StartCoroutine(EfeitoTypewriter());
         }
         else
@@ -56,9 +55,7 @@ public class NarrativaPrincipal : MonoBehaviour
         }
     }
 
-    // O restante das funções (AvancarNarrativa, EfeitoTypewriter, CarregarCenaDoJogo)
-    // permanece o mesmo...
-
+    
     void AvancarNarrativa()
     {
         if (estaDigitando)

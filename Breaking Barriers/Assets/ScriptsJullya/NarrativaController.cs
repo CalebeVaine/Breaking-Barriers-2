@@ -44,15 +44,12 @@ public class NarrativaController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Avança para a próxima fala da narrativa ou carrega a cena do jogo.
-    /// Esta função é chamada ao apertar E ou pelo evento OnClick de um botão "Avançar".
-    /// </summary>
+
     public void AvancarNarrativa()
     {
         if (estaDigitando)
         {
-            // Se estiver digitando, pula o efeito e mostra o texto completo
+       
             StopAllCoroutines();
             textoDaNarrativa.text = falasDaNarrativa[indiceAtualDaFala];
             estaDigitando = false;
@@ -61,7 +58,7 @@ public class NarrativaController : MonoBehaviour
 
         if (indiceAtualDaFala < falasDaNarrativa.Length - 1)
         {
-            // Avança para a próxima fala e inicia o efeito typewriter
+            
             indiceAtualDaFala++;
             StartCoroutine(EfeitoTypewriter());
         }
@@ -75,7 +72,7 @@ public class NarrativaController : MonoBehaviour
         string falaCompleta = falasDaNarrativa[indiceAtualDaFala];
         textoDaNarrativa.text = "";
 
-        // Garante que a velocidade não é zero para evitar um loop infinito
+
         float waitTime = velocidadeTypewriter > 0 ? velocidadeTypewriter : 0.05f;
 
         foreach (char letra in falaCompleta.ToCharArray())
@@ -87,14 +84,7 @@ public class NarrativaController : MonoBehaviour
         estaDigitando = false;
     }
 
-    /// <summary>
-    /// Carrega a cena do jogo (Fim da Narrativa).
-    /// </summary>
-    
-    /// <summary>
-    /// Carrega a cena do Menu Principal/Entrada.
-    /// Esta função DEVE ser chamada pelo evento OnClick de um botão "Voltar".
-    /// </summary>
+
     public void VoltarParaMenu()
     {
         if (!string.IsNullOrEmpty(nomeDaCenaDoMenu))
