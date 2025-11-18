@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 10f;
     private Rigidbody2D body;
+
+    private float originalSpeed;
 
     public static int score = 0;
 
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         score = 0;
+        originalSpeed = speed;
 
         gameManager = FindObjectOfType<GameManager2>();
 
@@ -108,5 +112,20 @@ public class Player : MonoBehaviour
             s.x = Mathf.Abs(s.x) * (faceRight ? 1f : -1f);
             transform.localScale = s;
         }
+    }
+
+    public void ActivateSpeedBoost(float multiplier, float duration)
+    {
+        StopCoroutine("SpeedBoostCoroutine");
+        StartCoroutine(SpeedBoostCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
+    {
+        speed = originalSpeed * multiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        speed = originalSpeed;
     }
 }
