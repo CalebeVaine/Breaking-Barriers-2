@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 
     private float originalSpeed;
 
+    public int extraJumps = 1;
+    private int jumpsLeft;
+
     public static int score = 0;
 
     private GameManager2 gameManager;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         score = 0;
         originalSpeed = speed;
+        jumpsLeft = extraJumps;
 
         gameManager = FindObjectOfType<GameManager2>();
 
@@ -45,8 +49,26 @@ public class Player : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            Jump();
+        if (isGrounded)
+        {
+            jumpsLeft = extraJumps;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded)
+            {
+                Jump();
+            }
+            else if (jumpsLeft > 0)
+            {
+            
+                body.linearVelocity = new Vector2(body.linearVelocity.x, 0f);
+
+                Jump();
+                jumpsLeft--;
+            }
+        }
 
         anim.SetBool("IsWalking", horizontal != 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
