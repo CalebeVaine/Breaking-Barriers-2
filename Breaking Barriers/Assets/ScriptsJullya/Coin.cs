@@ -4,9 +4,8 @@ public class Coin : MonoBehaviour
 {
     public int points = 1;
 
-    [Header("¡udio")]
+    [Header("√Åudio")]
     public AudioClip collectSound;
-
 
     [Tooltip("Volume do som de coleta (0.0 = mudo, 1.0 = volume total).")]
     public float collectVolume = 1.0f;
@@ -15,32 +14,33 @@ public class Coin : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager2>();
+        gameManager = FindAnyObjectByType<GameManager2>(); 
+        
         if (gameManager == null)
         {
-            Debug.LogError("Coin: GameManager n„o encontrado na cena. O contador de UI n„o funcionar·.");
+            Debug.LogError("Coin: GameManager n√£o encontrado na cena. O contador de UI n√£o funcionar√°.");
         }
     }
 
     public void Collect()
     {
-  
+        
         if (collectSound != null)
         {
-      
             AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
         }
 
 
-        Player.score += points;
-        Debug.Log("Ponto coletado! Novo Score: " + Player.score);
-
         if (gameManager != null)
         {
-            gameManager.CollectItem();
+            gameManager.AddCollectible(points);
         }
 
    
+        
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        
         Destroy(gameObject);
     }
 }

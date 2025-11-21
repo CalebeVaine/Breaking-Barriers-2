@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections; 
 
 public class Player : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 10f;
     private Rigidbody2D body;
-
+    
     private float originalSpeed;
 
     public int extraJumps = 1;
@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool isFacingRight = true;
+    
+    
+    private bool isControlsInverted = false; 
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class Player : MonoBehaviour
         originalSpeed = speed;
         jumpsLeft = extraJumps;
 
-        gameManager = FindObjectOfType<GameManager2>();
+        gameManager = FindFirstObjectByType<GameManager2>();
 
         if (anim == null)
             anim = GetComponent<Animator>();
@@ -45,8 +48,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
+       
+        float rawInput = Input.GetAxisRaw("Horizontal");
+        horizontal = isControlsInverted ? -rawInput : rawInput; 
+        
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         if (isGrounded)
@@ -62,9 +67,8 @@ public class Player : MonoBehaviour
             }
             else if (jumpsLeft > 0)
             {
-            
                 body.linearVelocity = new Vector2(body.linearVelocity.x, 0f);
-
+                
                 Jump();
                 jumpsLeft--;
             }
@@ -135,19 +139,36 @@ public class Player : MonoBehaviour
             transform.localScale = s;
         }
     }
+    
 
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
-        StopCoroutine("SpeedBoostCoroutine");
+        StopCoroutine("SpeedBoostCoroutine"); 
         StartCoroutine(SpeedBoostCoroutine(multiplier, duration));
     }
 
     private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
     {
         speed = originalSpeed * multiplier;
-
+        
         yield return new WaitForSeconds(duration);
 
-        speed = originalSpeed;
+        speed = originalSpeed; 
+    }
+    
+    
+    public void ActivateInversion(float duration)
+    {
+        StopCoroutine("InversionCoroutine"); 
+        StartCoroutine(InversionCoroutine(duration));
+    }
+
+    private IEnumerator InversionCoroutine(float duration)
+    {
+        isControlsInverted = true;
+        
+        yield return new WaitForSeconds(duration);
+
+        isControlsInverted = false;
     }
 }
