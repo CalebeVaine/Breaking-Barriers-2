@@ -15,12 +15,26 @@ public class GameManager2 : MonoBehaviour
     public int collectiblesCollected = 0;
     public int requiredDocuments = 3; 
     public int documentsCollected = 0;
-    public string nextSceneName = "GameOver";
+    private int totalCoinsInScene;
+    
+    
+    public string victorySceneName = "WinScene"; 
+    public string defeatSceneName = "GameOver"; 
 
     [Header("Referências de UI")]
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countText;
     public GameObject warningTextObject; 
+
+    [Header("UI de Conhecimento")]
+    public GameObject knowledgeTextContainer; 
+    public TextMeshProUGUI knowledgeText; 
+
+    void Awake()
+    {
+        Coin[] allCoins = FindObjectsByType<Coin>(FindObjectsSortMode.None);
+        totalCoinsInScene = allCoins.Length;
+    }
 
     void Start()
     {
@@ -28,11 +42,15 @@ public class GameManager2 : MonoBehaviour
         UpdateUI();
         Time.timeScale = 1;
 
-       
-       
         if (warningTextObject != null)
         {
             warningTextObject.SetActive(false);
+        }
+        
+        if (knowledgeTextContainer != null)
+        {
+            knowledgeTextContainer.SetActive(true);
+            UpdateKnowledgeUI(); 
         }
     }
 
@@ -69,24 +87,61 @@ public class GameManager2 : MonoBehaviour
     {
         Debug.Log("Fim do Tempo!");
         Time.timeScale = 0;
-        SceneManager.LoadScene(nextSceneName);
+      
+        SceneManager.LoadScene(defeatSceneName);
     }
 
     public void PlayerHit()
     {
+        Debug.Log("Player Atingido!");
         Time.timeScale = 0;
-        SceneManager.LoadScene(nextSceneName);
+       
+        SceneManager.LoadScene(defeatSceneName);
     }
 
     public void AddCollectible(int points)
     {
         collectiblesCollected++;
+        UpdateKnowledgeUI(); 
+        CheckCoinWinCondition();
     }
 
     public void AddDocument()
     {
         documentsCollected++;
         UpdateUI();
+    }
+
+    private void UpdateKnowledgeUI()
+    {
+        if (knowledgeText != null)
+        {
+            knowledgeText.text = "Conhecimento: " + collectiblesCollected + "/" + totalCoinsInScene;
+        }
+    }
+
+    public void CheckCoinWinCondition()
+    {
+        if (collectiblesCollected >= totalCoinsInScene)
+        {
+            LevelComplete();
+        }
+    }
+
+    public void CheckWinCondition()
+    {
+        if (documentsCollected >= requiredDocuments)
+        {
+            LevelComplete();
+        }
+    }
+
+    public void LevelComplete()
+    {
+        Debug.Log("Parabéns! Nível Concluído!");
+        Time.timeScale = 0;
+       
+        SceneManager.LoadScene(victorySceneName); 
     }
 
     public void SetTimerActive(bool state)
@@ -113,5 +168,10 @@ public class GameManager2 : MonoBehaviour
         {
             warningTextObject.SetActive(false); 
         }
+    }
+    
+    public void ShowKnowledgeText(string message, float duration)
+    {
+     
     }
 }

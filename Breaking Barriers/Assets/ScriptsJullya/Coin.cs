@@ -30,13 +30,10 @@ public class Coin : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
         }
 
-
         if (gameManager != null)
         {
             gameManager.AddCollectible(points);
         }
-
-   
         
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
