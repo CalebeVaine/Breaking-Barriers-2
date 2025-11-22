@@ -6,7 +6,7 @@ using System.Collections;
 public class GameManager2 : MonoBehaviour
 {
     [Header("Configurações do Tempo")]
-    public float timeLimit = 16f * 60f;
+    public float timeLimit = 960f;
     private float timeRemaining;
     private bool isTimerRunning = false;
 
@@ -16,7 +16,6 @@ public class GameManager2 : MonoBehaviour
     public int requiredDocuments = 3; 
     public int documentsCollected = 0;
     private int totalCoinsInScene;
-    
     
     public string victorySceneName = "WinScene"; 
     public string defeatSceneName = "GameOver"; 
@@ -85,17 +84,13 @@ public class GameManager2 : MonoBehaviour
 
     public void TimeIsUp()
     {
-        Debug.Log("Fim do Tempo!");
         Time.timeScale = 0;
-      
         SceneManager.LoadScene(defeatSceneName);
     }
 
     public void PlayerHit()
     {
-        Debug.Log("Player Atingido!");
         Time.timeScale = 0;
-       
         SceneManager.LoadScene(defeatSceneName);
     }
 
@@ -138,9 +133,7 @@ public class GameManager2 : MonoBehaviour
 
     public void LevelComplete()
     {
-        Debug.Log("Parabéns! Nível Concluído!");
         Time.timeScale = 0;
-       
         SceneManager.LoadScene(victorySceneName); 
     }
 
@@ -172,6 +165,5 @@ public class GameManager2 : MonoBehaviour
     
     public void ShowKnowledgeText(string message, float duration)
     {
-     
     }
 }
