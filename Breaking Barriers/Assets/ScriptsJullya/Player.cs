@@ -14,27 +14,26 @@ public class Player : MonoBehaviour
     private int jumpsLeft;
 
     public static int score = 0;
+    public static int keysCollected = 0;
 
     private GameManager2 gameManager;
 
     private bool isGrounded;
     public Transform groundCheck;
     public LayerMask groundLayer;
-
     public int health = 1;
 
     public Animator anim;
     private SpriteRenderer spriteRenderer;
 
     private bool isFacingRight = true;
-    
-    
-    private bool isControlsInverted = false; 
+    private bool isControlsInverted = false;
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         score = 0;
+        keysCollected = 0;
         originalSpeed = speed;
         jumpsLeft = extraJumps;
 
@@ -48,7 +47,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-       
         float rawInput = Input.GetAxisRaw("Horizontal");
         horizontal = isControlsInverted ? -rawInput : rawInput; 
         
@@ -99,13 +97,24 @@ public class Player : MonoBehaviour
         score += points;
     }
 
+    public void AddKey()
+    {
+        keysCollected++;
+        Debug.Log("Chaves Coletadas: " + keysCollected); 
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            Coin coin = other.GetComponent<Coin>();
+            Coin coin = other.GetComponent<Coin>(); 
             if (coin != null)
                 coin.Collect();
+        }
+        else if (other.CompareTag("Key"))
+        {
+            AddKey();
+            Destroy(other.gameObject); 
         }
     }
 
@@ -113,18 +122,11 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            health--;
-
-            if (health <= 0)
-            {
-                if (gameManager != null)
-                    gameManager.PlayerHit();
-
-                this.enabled = false;
-            }
+            if (gameManager != null)
+                gameManager.PlayerHit();
         }
     }
-
+    
     private void FlipSprite(bool faceRight)
     {
         isFacingRight = faceRight;
@@ -140,7 +142,6 @@ public class Player : MonoBehaviour
         }
     }
     
-
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
         StopCoroutine("SpeedBoostCoroutine"); 
@@ -155,7 +156,6 @@ public class Player : MonoBehaviour
 
         speed = originalSpeed; 
     }
-    
     
     public void ActivateInversion(float duration)
     {

@@ -6,7 +6,8 @@ public class TimeChallengeZone : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindAnyObjectByType<GameManager2>();
+       
+        gameManager = FindAnyObjectByType<GameManager2>(); 
         
         if (gameManager == null)
         {
@@ -21,8 +22,11 @@ public class TimeChallengeZone : MonoBehaviour
         {
             if (gameManager != null)
             {
+      
                 gameManager.SetTimerActive(true); 
-                gameManager.ShowWarningText(2.5f); 
+                
+               
+                gameManager.ShowWarningText("ZONA CRONOMETRADA ATIVA"); 
             }
         }
     }
@@ -33,7 +37,11 @@ public class TimeChallengeZone : MonoBehaviour
         {
             if (gameManager != null)
             {
+             
                 gameManager.SetTimerActive(false);
+                
+                
+                gameManager.ShowWarningText(""); 
             }
         }
     }

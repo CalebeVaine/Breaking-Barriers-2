@@ -1,169 +1,141 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro; 
-using System.Collections; 
+using System.Collections;
+using TMPro;
+using UnityEngine.SceneManagement; 
 
 public class GameManager2 : MonoBehaviour
 {
-    [Header("Configurações do Tempo")]
-    public float timeLimit = 960f;
-    private float timeRemaining;
-    private bool isTimerRunning = false;
-
-    [Header("Objetivos do Nível")]
-    public int totalCollectibles = 0;
-    public int collectiblesCollected = 0;
-    public int requiredDocuments = 3; 
     public int documentsCollected = 0;
-    private int totalCoinsInScene;
+    public int requiredDocuments = 3;
+    public int totalCollectibles = 0;
+
+    public TextMeshProUGUI documentsText;
+    public TextMeshProUGUI collectiblesText;
+    public TextMeshProUGUI warningText; 
+    public TextMeshProUGUI timerText; 
     
-    public string victorySceneName = "WinScene"; 
-    public string defeatSceneName = "GameOver"; 
+    public bool isTimerActive = false;
+    public int playerHealth = 3;
+    public float maxTime = 60f;
+    private float currentTimer; 
 
-    [Header("Referências de UI")]
-    public TextMeshProUGUI timerText;
-    public TextMeshProUGUI countText;
-    public GameObject warningTextObject; 
+    public GameObject smokePanelObject; 
 
-    [Header("UI de Conhecimento")]
-    public GameObject knowledgeTextContainer; 
-    public TextMeshProUGUI knowledgeText; 
-
-    void Awake()
-    {
-        Coin[] allCoins = FindObjectsByType<Coin>(FindObjectsSortMode.None);
-        totalCoinsInScene = allCoins.Length;
-    }
+    public string victorySceneName = "VictoryScreen";
+    public string gameOverSceneName = "GameOverScreen";
 
     void Start()
     {
-        timeRemaining = timeLimit;
+        currentTimer = maxTime;
         UpdateUI();
-        Time.timeScale = 1;
-
-        if (warningTextObject != null)
-        {
-            warningTextObject.SetActive(false);
-        }
+        UpdateTimerUI();
+        Time.timeScale = 1f; 
         
-        if (knowledgeTextContainer != null)
+      
+        if (smokePanelObject != null)
         {
-            knowledgeTextContainer.SetActive(true);
-            UpdateKnowledgeUI(); 
+            smokePanelObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        if (isTimerRunning && timeRemaining > 0)
+        if (isTimerActive)
         {
-            timeRemaining -= Time.deltaTime;
-            UpdateUI();
+            currentTimer -= Time.deltaTime;
+            if (currentTimer <= 0)
+            {
+                currentTimer = 0;
+                GameOver(); 
+            }
+            UpdateTimerUI();
         }
-        else if (isTimerRunning && timeRemaining <= 0)
-        {
-            timeRemaining = 0;
-            TimeIsUp();
-        }
-    }
-
-    void UpdateUI()
-    {
-        if (timerText != null)
-        {
-            int minutes = Mathf.FloorToInt(timeRemaining / 60);
-            int seconds = Mathf.FloorToInt(timeRemaining % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
-        
-        if (countText != null)
-        {
-            countText.text = "Documentos: " + documentsCollected + "/" + requiredDocuments;
-        }
-    }
-
-    public void TimeIsUp()
-    {
-        Time.timeScale = 0;
-        SceneManager.LoadScene(defeatSceneName);
-    }
-
-    public void PlayerHit()
-    {
-        Time.timeScale = 0;
-        SceneManager.LoadScene(defeatSceneName);
-    }
-
-    public void AddCollectible(int points)
-    {
-        collectiblesCollected++;
-        UpdateKnowledgeUI(); 
-        CheckCoinWinCondition();
     }
 
     public void AddDocument()
     {
         documentsCollected++;
         UpdateUI();
-    }
-
-    private void UpdateKnowledgeUI()
-    {
-        if (knowledgeText != null)
-        {
-            knowledgeText.text = "Conhecimento: " + collectiblesCollected + "/" + totalCoinsInScene;
-        }
-    }
-
-    public void CheckCoinWinCondition()
-    {
-        if (collectiblesCollected >= totalCoinsInScene)
-        {
-            LevelComplete();
-        }
-    }
-
-    public void CheckWinCondition()
-    {
+        
         if (documentsCollected >= requiredDocuments)
         {
-            LevelComplete();
+            Victory();
         }
     }
 
-    public void LevelComplete()
+    public void AddCollectible(int value)
     {
-        Time.timeScale = 0;
-        SceneManager.LoadScene(victorySceneName); 
+        totalCollectibles += value;
+        UpdateUI();
+    }
+    
+    public void PlayerHit()
+    {
+        playerHealth--;
+        if (playerHealth <= 0)
+        {
+            GameOver();
+        }
     }
 
+    
     public void SetTimerActive(bool state)
     {
-        isTimerRunning = state;
-    }
-
-    public void ShowWarningText(float duration)
-    {
-        StopCoroutine("WarningTextCoroutine"); 
-        StartCoroutine(WarningTextCoroutine(duration));
-    }
-
-    private IEnumerator WarningTextCoroutine(float duration)
-    {
-        if (warningTextObject != null)
-        {
-            warningTextObject.SetActive(true); 
-        }
+        isTimerActive = state;
         
-        yield return new WaitForSeconds(duration);
-
-        if (warningTextObject != null)
+    
+        if (smokePanelObject != null)
         {
-            warningTextObject.SetActive(false); 
+            smokePanelObject.SetActive(state);
         }
     }
     
-    public void ShowKnowledgeText(string message, float duration)
+    
+    public void ShowWarningText(string text)
     {
+        if (warningText != null)
+        {
+            warningText.text = text;
+        }
+    }
+
+    void UpdateUI()
+    {
+        if (documentsText != null)
+        {
+            documentsText.text = "Documentos: " + documentsCollected + "/" + requiredDocuments;
+        }
+        if (collectiblesText != null)
+        {
+            collectiblesText.text = "Conhecimento: " + totalCollectibles;
+        }
+    }
+
+    void UpdateTimerUI()
+    {
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(currentTimer / 60f);
+            int seconds = Mathf.FloorToInt(currentTimer % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    public void Victory()
+    {
+        Time.timeScale = 1f; 
+        if (!string.IsNullOrEmpty(victorySceneName))
+        {
+            SceneManager.LoadScene(victorySceneName);
+        }
+    }
+    
+    public void GameOver()
+    {
+        Time.timeScale = 1f; 
+        if (!string.IsNullOrEmpty(gameOverSceneName))
+        {
+            SceneManager.LoadScene(gameOverSceneName);
+        }
     }
 }

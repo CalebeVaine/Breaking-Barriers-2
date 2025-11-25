@@ -2,39 +2,34 @@ using UnityEngine;
 
 public class KeyGate : MonoBehaviour
 {
-    private GameManager2 gameManager;
-    private bool isLocked = true;
+  
+    
+    [SerializeField] private int requiredKeys = 1; 
 
-    void Start()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameManager = FindAnyObjectByType<GameManager2>();
-        
-        if (gameManager == null)
+     
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.LogError("KeyGate: GameManager2 não encontrado.");
-            enabled = false;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && isLocked)
-        {
-            CheckUnlockCondition();
+          
+            if (CheckUnlockCondition())
+            {
+                UnlockGate(); 
+            }
+          
         }
     }
     
-    private void CheckUnlockCondition()
+    
+
+    private bool CheckUnlockCondition()
     {
-        if (gameManager.documentsCollected >= gameManager.requiredDocuments)
-        {
-            UnlockGate();
-        }
+        return Player.keysCollected >= requiredKeys;
     }
 
     private void UnlockGate()
     {
-        isLocked = false;
-        gameObject.SetActive(false); 
+       
+        Destroy(gameObject); 
     }
 }

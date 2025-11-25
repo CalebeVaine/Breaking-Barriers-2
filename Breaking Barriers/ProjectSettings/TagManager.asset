@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - GameObject
   - "Ch\xE3o"
+  - Key
   layers:
   - Default
   - TransparentFX
