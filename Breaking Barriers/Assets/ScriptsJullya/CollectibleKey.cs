@@ -2,45 +2,33 @@ using UnityEngine;
 
 public class CollectibleKey : MonoBehaviour
 {
-    private GameManager2 gameManager;
+    
 
-    void Start()
-    {
-        gameManager = FindAnyObjectByType<GameManager2>(); 
-        
-        if (gameManager == null)
-        {
-            Debug.LogError("ERRO FATAL: GameManager2 não encontrado. A coleta não funcionará.");
-            enabled = false;
-        }
-    }
+    public AudioClip collectSound;
+    public float collectVolume = 1.0f;
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-      
-        Debug.Log("Gatilho acionado com: " + other.gameObject.name + " (Tag: " + other.tag + ")");
-
         if (other.CompareTag("Player"))
         {
+            
+            Player playerComponent = other.GetComponent<Player>();
 
-            Debug.Log("SUCESSO: Player detectado. Iniciando a coleta.");
-
-            if (gameManager != null)
+            if (playerComponent != null)
             {
-                gameManager.AddDocument();
-               
-                Debug.Log("SUCESSO: Chamada AddDocument() enviada ao GameManager.");
+                playerComponent.AddKey();
             }
-            
-            
-            GetComponent<Collider2D>().enabled = false;
-            GetComponent<SpriteRenderer>().enabled = false;
 
-            Destroy(gameObject, 0.1f);
-        }
-        else
-        {
-             Debug.Log("Objeto colidido não é o Player. Tag atual: " + other.tag + ".");
+         
+            if (collectSound != null)
+            {
+                AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
+            }
+
+          
+            Destroy(gameObject);
         }
     }
 }

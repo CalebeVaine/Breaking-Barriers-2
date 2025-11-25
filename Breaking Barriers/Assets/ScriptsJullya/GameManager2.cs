@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class GameManager2 : MonoBehaviour
 {
@@ -11,15 +11,15 @@ public class GameManager2 : MonoBehaviour
 
     public TextMeshProUGUI documentsText;
     public TextMeshProUGUI collectiblesText;
-    public TextMeshProUGUI warningText; 
-    public TextMeshProUGUI timerText; 
-    
+    public TextMeshProUGUI warningText;
+    public TextMeshProUGUI timerText;
+
     public bool isTimerActive = false;
     public int playerHealth = 3;
     public float maxTime = 60f;
-    private float currentTimer; 
+    private float currentTimer;
 
-    public GameObject smokePanelObject; 
+    public GameObject smokePanelObject;
 
     public string victorySceneName = "VictoryScreen";
     public string gameOverSceneName = "GameOverScreen";
@@ -29,9 +29,8 @@ public class GameManager2 : MonoBehaviour
         currentTimer = maxTime;
         UpdateUI();
         UpdateTimerUI();
-        Time.timeScale = 1f; 
-        
-      
+        Time.timeScale = 1f;
+
         if (smokePanelObject != null)
         {
             smokePanelObject.SetActive(false);
@@ -46,17 +45,17 @@ public class GameManager2 : MonoBehaviour
             if (currentTimer <= 0)
             {
                 currentTimer = 0;
-                GameOver(); 
+                GameOver();
             }
             UpdateTimerUI();
         }
     }
 
-    public void AddDocument()
+    public void CollectDocument(int points)
     {
         documentsCollected++;
         UpdateUI();
-        
+
         if (documentsCollected >= requiredDocuments)
         {
             Victory();
@@ -68,7 +67,7 @@ public class GameManager2 : MonoBehaviour
         totalCollectibles += value;
         UpdateUI();
     }
-    
+
     public void PlayerHit()
     {
         playerHealth--;
@@ -78,19 +77,18 @@ public class GameManager2 : MonoBehaviour
         }
     }
 
-    
+
     public void SetTimerActive(bool state)
     {
         isTimerActive = state;
-        
-    
+
         if (smokePanelObject != null)
         {
             smokePanelObject.SetActive(state);
         }
     }
-    
-    
+
+
     public void ShowWarningText(string text)
     {
         if (warningText != null)
@@ -121,18 +119,23 @@ public class GameManager2 : MonoBehaviour
         }
     }
 
+    public void WinGame()
+    {
+        Victory();
+    }
+
     public void Victory()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         if (!string.IsNullOrEmpty(victorySceneName))
         {
             SceneManager.LoadScene(victorySceneName);
         }
     }
-    
+
     public void GameOver()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         if (!string.IsNullOrEmpty(gameOverSceneName))
         {
             SceneManager.LoadScene(gameOverSceneName);
