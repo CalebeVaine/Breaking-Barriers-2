@@ -5,10 +5,11 @@ public class KeyGate : MonoBehaviour
 
     [SerializeField] private int requiredKeys = 1;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+  
+    private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
 
             if (CheckUnlockCondition())
@@ -20,17 +21,18 @@ public class KeyGate : MonoBehaviour
     }
 
 
-
-
     private bool CheckUnlockCondition()
     {
-        
+
         return Player.keysCollected >= requiredKeys;
     }
 
     private void UnlockGate()
     {
+      
+        Player.keysCollected -= requiredKeys;
 
+    
         Destroy(gameObject);
     }
 }

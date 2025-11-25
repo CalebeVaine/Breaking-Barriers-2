@@ -14,12 +14,16 @@ public class GameManager2 : MonoBehaviour
     public TextMeshProUGUI warningText;
     public TextMeshProUGUI timerText;
 
+    public float speedBoostMultiplier = 1.5f;
+    public float speedBoostDuration = 4f;
+
     public bool isTimerActive = false;
     public int playerHealth = 3;
     public float maxTime = 60f;
     private float currentTimer;
 
     public GameObject smokePanelObject;
+    private Player playerScript;
 
     public string victorySceneName = "VictoryScreen";
     public string gameOverSceneName = "GameOverScreen";
@@ -34,6 +38,12 @@ public class GameManager2 : MonoBehaviour
         if (smokePanelObject != null)
         {
             smokePanelObject.SetActive(false);
+        }
+
+        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null)
+        {
+            playerScript = playerGO.GetComponent<Player>();
         }
     }
 
@@ -53,13 +63,9 @@ public class GameManager2 : MonoBehaviour
 
     public void CollectDocument(int points)
     {
+        
         documentsCollected++;
         UpdateUI();
-
-        if (documentsCollected >= requiredDocuments)
-        {
-            Victory();
-        }
     }
 
     public void AddCollectible(int value)

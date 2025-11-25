@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections; 
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 10f;
     private Rigidbody2D body;
-    
+
     private float originalSpeed;
 
     public int extraJumps = 1;
@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         float rawInput = Input.GetAxisRaw("Horizontal");
-        horizontal = isControlsInverted ? -rawInput : rawInput; 
-        
+        horizontal = isControlsInverted ? -rawInput : rawInput;
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         if (isGrounded)
@@ -66,12 +66,13 @@ public class Player : MonoBehaviour
             else if (jumpsLeft > 0)
             {
                 body.linearVelocity = new Vector2(body.linearVelocity.x, 0f);
-                
+
                 Jump();
                 jumpsLeft--;
             }
         }
 
+        // AVISO: Certifique-se de que o parâmetro "Speed" exista no seu Animator.
         anim.SetBool("IsWalking", horizontal != 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -100,22 +101,24 @@ public class Player : MonoBehaviour
     public void AddKey()
     {
         keysCollected++;
-        Debug.Log("Chaves Coletadas: " + keysCollected); 
+        Debug.Log("Chaves Coletadas: " + keysCollected);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            Coin coin = other.GetComponent<Coin>(); 
+            Coin coin = other.GetComponent<Coin>();
             if (coin != null)
                 coin.Collect();
         }
-        else if (other.CompareTag("Key"))
-        {
-            AddKey();
-            Destroy(other.gameObject); 
-        }
+        // REMOÇÃO DA LÓGICA DE COLETA DE CHAVE DUPLICADA:
+        // A coleta agora é tratada APENAS pelo script CollectibleKey.cs
+        // else if (other.CompareTag("Key"))
+        // {
+        //     AddKey();
+        //     Destroy(other.gameObject);
+        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -126,7 +129,7 @@ public class Player : MonoBehaviour
                 gameManager.PlayerHit();
         }
     }
-    
+
     private void FlipSprite(bool faceRight)
     {
         isFacingRight = faceRight;
@@ -141,32 +144,32 @@ public class Player : MonoBehaviour
             transform.localScale = s;
         }
     }
-    
+
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
-        StopCoroutine("SpeedBoostCoroutine"); 
+        StopCoroutine("SpeedBoostCoroutine");
         StartCoroutine(SpeedBoostCoroutine(multiplier, duration));
     }
 
     private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
     {
         speed = originalSpeed * multiplier;
-        
+
         yield return new WaitForSeconds(duration);
 
-        speed = originalSpeed; 
+        speed = originalSpeed;
     }
-    
+
     public void ActivateInversion(float duration)
     {
-        StopCoroutine("InversionCoroutine"); 
+        StopCoroutine("InversionCoroutine");
         StartCoroutine(InversionCoroutine(duration));
     }
 
     private IEnumerator InversionCoroutine(float duration)
     {
         isControlsInverted = true;
-        
+
         yield return new WaitForSeconds(duration);
 
         isControlsInverted = false;
