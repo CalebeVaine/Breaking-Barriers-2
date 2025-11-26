@@ -994,23 +994,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarrativaPrincipal
   falasDaNarrativa:
-  - "O sol de Bras\xEDlia nascia sobre um mundo vibrante, mas cheio de sombras."
+  - "O sol de Bras\xEDlia nascia sobre um mundo vibrante, mas cheio de sombras"
   - "Jaqueline se sentia diferente a sua alma clamava por uma verdade que o mundo
-    \xE0 sua volta n\xE3o compreendia."
+    \xE0 sua volta n\xE3o compreendia"
   - Desde pequena, cada passo era um eco contra o preconceito.
-  - "Ser uma crian\xE7a negra e sentir-se de um jeito que desafiava as caixas impostas
-    n\xE3o era f\xE1cil."
-  - "O preconceito racial tentava definir sua cor; uma dor interna, mais aguda, tentava
-    anular sua ess\xEAncia."
-  - "Uma crian\xE7a negra em um mundo que negava sua beleza  e uma alma que desobedecia
-    o g\xEAnero que lhe foi imposto."
-  - "Mas a dor n\xE3o era ina\xE7\xE3o: era combust\xEDvel."
-  - "AGORA: Eles sabem quem voc\xEA \xE9. Querem te for\xE7ar a voltar para a \"caixa\"
-    da qual voc\xEA fugiu."
-  - "O tempo est\xE1 acabando: voc\xEA tem 10 segundos para atravessar o mapa e recolher
-    os itens essenciais para alcan\xE7ar a vit\xF3ria."
-  - "Cada esbarr\xE3o, cada sussurro de desaprova\xE7\xE3o, enfraquece sua energia.
-    Desvie dos inimigos sobreviva e ven\xE7a."
+  - "Uma crian\xE7a negra e se sentir de um jeito que desafiava as caixas impostas
+    n\xE3o era f\xE1cil "
+  - "AGORA: Eles sabem quem voc\xEA \xE9. Querem te for\xE7ar a voltar para a \"caixa\"."
+  - Colete os Documentos e Chaves para vencer.
+  - Desvie dos inimigos. Sobreviva e receba a recompensa
   textoDaNarrativa: {fileID: 113699089}
   velocidadeTypewriter: 0.05
   nomeDaCenaDoJogo: MainMenu
