@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CenaLogo.unity
     guid: 200eed8d146dc6b449436306aba9241d
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: a192bb6ead8b9694893d1bc3326acdfe
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

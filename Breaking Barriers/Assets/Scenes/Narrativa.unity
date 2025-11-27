@@ -937,8 +937,8 @@ MonoBehaviour:
     poderosas contra a injusti\xE7a."
   textoDaNarrativa: {fileID: 173572861}
   velocidadeTypewriter: 0.05
-  nomeDaCenaDoMenu: MainMenu
-  nomeDaCenaDoJogo: MainMenu
+  nomeDaCenaDoMenu: Tutorial
+  nomeDaCenaDoJogo: Tutorial
 --- !u!1 &1593148264
 GameObject:
   m_ObjectHideFlags: 0
