@@ -176,7 +176,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Voltar
+  m_text: 'Continuar
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1f8ce782bbb12034e8f0bda9c7ed8d35, type: 2}
   m_sharedMaterial: {fileID: -3809731047009222959, guid: 1f8ce782bbb12034e8f0bda9c7ed8d35, type: 2}
@@ -291,7 +293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -306.07, y: 191.5}
+  m_AnchoredPosition: {x: 293, y: -205}
   m_SizeDelta: {x: 149.85, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &17387135
@@ -521,7 +523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.42, y: -94}
+  m_AnchoredPosition: {x: -23, y: -20}
   m_SizeDelta: {x: 387.45, y: 52.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &200681913
@@ -608,8 +610,8 @@ Transform:
   m_GameObject: {fileID: 200681913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.1581, y: -1.9968, z: 0}
-  m_LocalScale: {x: 2.1465733, y: 1.9261152, z: 1}
+  m_LocalPosition: {x: -6.3538, y: -2.1839, z: 0}
+  m_LocalScale: {x: 1.9016494, y: 1.7063454, z: 0.8859}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -935,7 +937,7 @@ MonoBehaviour:
     poderosas contra a injusti\xE7a."
   textoDaNarrativa: {fileID: 173572861}
   velocidadeTypewriter: 0.05
-  nomeDaCenaDoMenu: CenaEntrada
+  nomeDaCenaDoMenu: MainMenu
   nomeDaCenaDoJogo: MainMenu
 --- !u!1 &1593148264
 GameObject:
@@ -1257,7 +1259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42.862, y: 197.3}
+  m_AnchoredPosition: {x: -284, y: 211}
   m_SizeDelta: {x: 85.725, y: 27.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2065811705
@@ -1345,7 +1347,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -57.706856, y: 0, z: -257.0895, w: 7.0373917}
+  m_margin: {x: -57.706856, y: 0, z: -257.0895, w: 0.34333473}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
