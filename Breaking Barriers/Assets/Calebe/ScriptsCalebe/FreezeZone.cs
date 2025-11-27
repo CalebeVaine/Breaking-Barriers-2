@@ -2,31 +2,59 @@
 
 public class FreezeZone : MonoBehaviour
 {
-    public Player player;
-    public OlhoCongelado olho;
+    public OlhoCongelado olho;        // Referência ao olho
+    public Rigidbody2D rb;            // Rigidbody do player
+    public float freezeTime = 1.5f;   // Duração do congelamento
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private bool isFrozen = false;
+    private float freezeTimer = 0f;
+
+    private float originalGravity;
+
+    void Start()
     {
-        if (collision.CompareTag("Player"))
+        originalGravity = rb.gravityScale;
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (!col.CompareTag("Player")) return;
+
+        if (olho.podeCongelar && !isFrozen)
         {
-            player.freezeMovement = false; // garante que não congela instantâneo
+            Congelar();
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void Update()
     {
-        if (collision.CompareTag("Player"))
+        if (!isFrozen) return;
+
+        freezeTimer -= Time.deltaTime;
+
+        if (freezeTimer <= 0)
         {
-            // congela SOMENTE se o olho puder congelar
-            player.freezeMovement = olho.podeCongelar;
+            Descongelar();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void Congelar()
     {
-        if (collision.CompareTag("Player"))
-        {
-            player.freezeMovement = false; // sempre libera ao sair
-        }
+        isFrozen = true;
+        freezeTimer = freezeTime;
+
+        // Congela corretamente sem bug de ficar preso no chão
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 0;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    void Descongelar()
+    {
+        isFrozen = false;
+
+        // Libera o corpo SEM grudar no chão
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.gravityScale = originalGravity;
     }
 }

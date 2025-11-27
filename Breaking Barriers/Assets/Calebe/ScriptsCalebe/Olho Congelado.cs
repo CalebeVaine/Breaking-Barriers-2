@@ -12,11 +12,12 @@ public class OlhoCongelado : MonoBehaviour
     // Sprites que representam o olho aberto
     public Sprite[] openEyeSprites;
 
-    // ESSA variável é o estado real do olho
+    // Estado final usado pelo FreezeZone
     [HideInInspector] public bool podeCongelar = false;
 
-    private void Update()
+    void Update()
     {
+        // Atualiza animação
         timer += Time.deltaTime;
 
         if (timer >= switchInterval)
@@ -28,11 +29,13 @@ public class OlhoCongelado : MonoBehaviour
                 index = 0;
 
             sr.sprite = enemySprites[index];
-
-            AtualizarEstadoDoOlho();
-
-            Debug.Log("Olho pode congelar: " + podeCongelar);
         }
+
+        // Atualiza estado do olho (se está aberto)
+        AtualizarEstadoDoOlho();
+
+        // Debug
+        // Debug.Log("Olho pode congelar: " + podeCongelar);
     }
 
     private void AtualizarEstadoDoOlho()

@@ -722,8 +722,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67fd420c7af30e4ba8c4872ed4c2c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spritesinimigos
-  enemySprites: []
-  switchInterval: 0.2
+  enemySprites:
+  - {fileID: 21300142, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+  - {fileID: 21300144, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+  - {fileID: 21300146, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+  - {fileID: 21300148, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+  switchInterval: 0.4
 --- !u!114 &104657516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2281,6 +2285,114 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &225851269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225851272}
+  - component: {fileID: 225851271}
+  - component: {fileID: 225851270}
+  - component: {fileID: 225851273}
+  m_Layer: 0
+  m_Name: FreezeZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &225851270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225851269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17995c592bdb51d4eb8dbe5feff0caf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZonaCongelada
+  olho: {fileID: 1808780158}
+--- !u!61 &225851271
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225851269}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 10.59815, y: 0.88674974}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 31.204548, y: 9.360782}
+  m_EdgeRadius: 0
+--- !u!4 &225851272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225851269}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 63.11, y: -0.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &225851273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225851269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c42d6088dcf36474691da5a3a4c89400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreezeZone
+  olho: {fileID: 1808780158}
+  rb: {fileID: 1737538930}
+  freezeTime: 1.5
 --- !u!1 &237752983
 GameObject:
   m_ObjectHideFlags: 0
@@ -6980,7 +7092,7 @@ Transform:
   m_GameObject: {fileID: 1106306317}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.31369507, w: 0.9495238}
-  m_LocalPosition: {x: 2.8710008, y: -0.34999993, z: 0}
+  m_LocalPosition: {x: 4.064, y: -0.711, z: 0}
   m_LocalScale: {x: 0.014327427, y: 0.019979864, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19390,6 +19502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2333e16a9129ad3488c383d88d677812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeMovement: 0
   speed: 5
   jumpForce: 5.48
   extraJumps: 1
@@ -19399,7 +19512,6 @@ MonoBehaviour:
     m_Bits: 1024
   health: 1
   anim: {fileID: 0}
-  frozen: 0
 --- !u!50 &1737538930
 Rigidbody2D:
   serializedVersion: 5
@@ -19540,7 +19652,7 @@ Transform:
   m_GameObject: {fileID: 1737538928}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9999977, z: -0, w: -0.0021523598}
-  m_LocalPosition: {x: -7.9, y: -3.18, z: -0.76}
+  m_LocalPosition: {x: -7.45, y: -3.02, z: -0.77}
   m_LocalScale: {x: 0.08917669, y: 0.10368591, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20521,8 +20633,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1808780157}
   - component: {fileID: 1808780156}
-  - component: {fileID: 1808780155}
   - component: {fileID: 1808780158}
+  - component: {fileID: 1808780159}
   m_Layer: 0
   m_Name: Olho
   m_TagString: Untagged
@@ -20530,20 +20642,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1808780155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808780154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67fd420c7af30e4ba8c4872ed4c2c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spritesinimigos
-  enemySprites: []
-  switchInterval: 0.5
 --- !u!212 &1808780156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20640,13 +20738,26 @@ MonoBehaviour:
   - {fileID: 21300348, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
   - {fileID: 21300346, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
   - {fileID: 21300344, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
-  player: {fileID: 1737538929}
   switchInterval: 0.5
   openEyeSprites:
   - {fileID: 21300302, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
-  - {fileID: 21300304, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
-  - {fileID: 21300346, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
   - {fileID: 21300344, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+  podeCongelar: 1
+--- !u!114 &1808780159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808780154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c42d6088dcf36474691da5a3a4c89400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreezeZone
+  olho: {fileID: 1808780158}
+  rb: {fileID: 0}
+  freezeTime: 1.5
 --- !u!1 &1826183063
 GameObject:
   m_ObjectHideFlags: 0
@@ -21303,8 +21414,8 @@ Transform:
   m_GameObject: {fileID: 1948809235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.08526, y: 0.0753, z: 0}
-  m_LocalScale: {x: 3.5373724, y: 1.9386101, z: 1}
+  m_LocalPosition: {x: -3.08526, y: 0.0676, z: 0}
+  m_LocalScale: {x: 3.5373724, y: 1.9539251, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 547044008}
@@ -22805,6 +22916,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 825042129}
   - {fileID: 1069140931}
+  - {fileID: 225851272}
   - {fileID: 1988124881}
   - {fileID: 1686114884}
   - {fileID: 1808780157}
