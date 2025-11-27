@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     private bool isFacingRight = true;
     private bool isControlsInverted = false;
 
+    //ADICIONADO: variável de congelamento
+    public bool frozen = false;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -47,6 +50,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //SE TIVER CONGELADO, NÃO FAZ NADA
+        if (frozen)
+        {
+            body.linearVelocity = Vector2.zero;
+            anim.SetBool("IsWalking", false);
+            return;
+        }
+
         float rawInput = Input.GetAxisRaw("Horizontal");
         horizontal = isControlsInverted ? -rawInput : rawInput;
 
@@ -72,7 +83,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        // AVISO: Certifique-se de que o parâmetro "Speed" exista no seu Animator.
         anim.SetBool("IsWalking", horizontal != 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -84,6 +94,16 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Impede movimento quando congelado
+        if (frozen)
+        {
+            if (frozen)
+            {
+                body.linearVelocity = Vector2.zero;
+                return;
+            }
+        }
+
         float currentSpeed = horizontal * speed;
         body.linearVelocity = new Vector2(currentSpeed, body.linearVelocity.y);
     }
@@ -112,13 +132,6 @@ public class Player : MonoBehaviour
             if (coin != null)
                 coin.Collect();
         }
-        // REMOÇÃO DA LÓGICA DE COLETA DE CHAVE DUPLICADA:
-        // A coleta agora é tratada APENAS pelo script CollectibleKey.cs
-        // else if (other.CompareTag("Key"))
-        // {
-        //     AddKey();
-        //     Destroy(other.gameObject);
-        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -154,9 +167,7 @@ public class Player : MonoBehaviour
     private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
     {
         speed = originalSpeed * multiplier;
-
         yield return new WaitForSeconds(duration);
-
         speed = originalSpeed;
     }
 
@@ -169,9 +180,19 @@ public class Player : MonoBehaviour
     private IEnumerator InversionCoroutine(float duration)
     {
         isControlsInverted = true;
-
         yield return new WaitForSeconds(duration);
-
         isControlsInverted = false;
     }
+
+    //ADICIONADO: Função chamada pelo inimigo
+    public void Freeze(bool state)
+    {
+        frozen = state;
+
+        if (state) // Congelar
+        {
+            body.linearVelocity = Vector2.zero;
+        }
+    }
+
 }
