@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    // controla se o player está impedido de se mover (visível no Inspector)
+    public bool freezeMovement = false;
+
     private float horizontal;
     public float speed = 5f;
     public float jumpForce = 10f;
@@ -29,9 +32,6 @@ public class Player : MonoBehaviour
     private bool isFacingRight = true;
     private bool isControlsInverted = false;
 
-    //ADICIONADO: variável de congelamento
-    public bool frozen = false;
-
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -50,11 +50,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //SE TIVER CONGELADO, NÃO FAZ NADA
-        if (frozen)
+        // SE TIVER CONGELADO, NÃO FAZ NADA (usa freezeMovement unificado)
+        if (freezeMovement)
         {
             body.linearVelocity = Vector2.zero;
-            anim.SetBool("IsWalking", false);
+            if (anim != null) anim.SetBool("IsWalking", false);
             return;
         }
 
@@ -77,14 +77,16 @@ public class Player : MonoBehaviour
             else if (jumpsLeft > 0)
             {
                 body.linearVelocity = new Vector2(body.linearVelocity.x, 0f);
-
                 Jump();
                 jumpsLeft--;
             }
         }
 
-        anim.SetBool("IsWalking", horizontal != 0);
-        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (anim != null)
+        {
+            anim.SetBool("IsWalking", horizontal != 0);
+            anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        }
 
         if (horizontal > 0.01f && !isFacingRight)
             FlipSprite(true);
@@ -94,14 +96,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Impede movimento quando congelado
-        if (frozen)
+        // bloqueia movimento horizontal se freezeMovement == true
+        if (freezeMovement)
         {
-            if (frozen)
-            {
-                body.linearVelocity = Vector2.zero;
-                return;
-            }
+            body.linearVelocity = new Vector2(0, body.linearVelocity.y);
+            return;
         }
 
         float currentSpeed = horizontal * speed;
@@ -184,15 +183,12 @@ public class Player : MonoBehaviour
         isControlsInverted = false;
     }
 
-    //ADICIONADO: Função chamada pelo inimigo
+    // método compatível caso algum inimigo ainda chame player.Freeze(true)
     public void Freeze(bool state)
     {
-        frozen = state;
+        freezeMovement = state;
 
-        if (state) // Congelar
-        {
+        if (state)
             body.linearVelocity = Vector2.zero;
-        }
     }
-
 }
